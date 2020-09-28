@@ -14,9 +14,13 @@ def connected_devices
 end
 
 
-def install_apps
+def uninstall_apps
   `#{adb_command} uninstall #{ESPRESSO_PKG}` if app_installed?(ESPRESSO_PKG)
   `#{adb_command} uninstall #{APP_PACKAGE}` if app_installed?(APP_PACKAGE)
+end
+
+def reinstall_apps
+  uninstall_apps
   `#{adb_command} install #{APP_PATH}`
   `#{adb_command} install #{ESPRESSO_SERVER_PATH}`
 end
@@ -41,6 +45,7 @@ def reserve_port
 end
 
 def default_caps
+  keystore = Keystore.new('calabash_settings')
   opts = {
       caps:
           {
@@ -51,13 +56,18 @@ def default_caps
               appPackage:             APP_PACKAGE,
               appWaitActivity:        '*',
               automationName:         'espresso',
-              skipServerInstallation: true,
               newCommandTimeout:      0,
               system_port:            reserve_port,
               autoGrantPermissions:   true, # If noReset is true, this capability doesn't work.
               skipUnlock:             true,
               fullReset:              false,
               tmpDir:                 "#{Dir.tmpdir}/appium_temp/#{ENV.fetch('WORKER_INDEX', '0')}",
+              useKeystore:            true,
+              keystorePath:           keystore.keystore_location,
+              keystorePassword:       keystore.keystore_password,
+              keyAlias:               keystore.keystore_alias,
+              keyPassword:            keystore.keystore_password,
+              showGradleLog:          true
           },
       appium_lib:
           {
@@ -70,4 +80,15 @@ def default_caps
   # puts("USING DEVICE = #{opts[:caps][:deviceName]}")
   # puts("USING PORT = #{opts[:caps][:system_port]}")
   opts
+end
+
+class Keystore
+  attr_reader :keystore_location, :keystore_password, :keystore_alias
+
+  def initialize(calabash_settings_path)
+    details = JSON.parse(File.read(calabash_settings_path))
+    @keystore_alias = details["keystore_alias"]
+    @keystore_password = details["keystore_password"]
+    @keystore_location = File.expand_path(details["keystore_location"])
+  end
 end

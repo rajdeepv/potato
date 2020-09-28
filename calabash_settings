@@ -1,0 +1,5 @@
+{
+  "keystore_alias":"androiddebugkey",
+  "keystore_location":"debug.keystore",
+  "keystore_password":"android"
+}

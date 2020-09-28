@@ -1,5 +1,5 @@
 Before do
-  install_apps
+  uninstall_apps
   @driver = Appium::Driver.new(default_caps, false)
   @driver.start_driver
 end
