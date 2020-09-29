@@ -1,4 +1,4 @@
 Feature: Notes
 
   Scenario: Add Note
-    Given I am on home page
+    Given I start creating a new note
