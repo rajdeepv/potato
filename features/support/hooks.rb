@@ -24,8 +24,8 @@ Before do
   APP_PACKAGE = 'com.avjindersinghsekhon.minimaltodo'
   ESPRESSO_SERVER_PATH = 'apks/espresso_server_notes.apk'
 
-  driver = Potato::AppiumAutomation.new
-  SystemUnderTest.device = Potato::Device.new(SystemUnderTest.adb_device_arg, driver)
+  ui_automation = Potato::AppiumAutomation.new
+  SystemUnderTest.device = Potato::Device.new(SystemUnderTest.adb_device_arg, ui_automation)
   SystemUnderTest.device.start_aut
 end
 
