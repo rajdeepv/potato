@@ -4,6 +4,8 @@ require_relative 'appium_automation/keystore'
 
 module Potato
   class AppiumAutomation
+    APP_PATH = 'apks/appium_notes.apk'
+    APP_PACKAGE = 'com.avjindersinghsekhon.minimaltodo'
 
     def driver
       @driver

@@ -1,9 +1,4 @@
 Before do
-  ESPRESSO_PKG = 'io.appium.espressoserver.test'
-  APP_PATH = 'apks/appium_notes.apk'
-  APP_PACKAGE = 'com.avjindersinghsekhon.minimaltodo'
-  ESPRESSO_SERVER_PATH = 'apks/espresso_server_notes.apk'
-
   ui_automation =  if SystemUnderTest.automation_type == 'appium'
                      Potato::AppiumAutomation.new
                    elsif SystemUnderTest.automation_type == 'calabash'
