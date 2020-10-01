@@ -1,0 +1,49 @@
+require_relative 'parallel_cucumber/redis_server'
+require 'json'
+require_relative 'features/support/system_under_test'
+# def connected_devices
+#   lines = `adb devices`.split("\n")
+#   start_index = lines.index { |x| x =~ /List of devices attached/ } + 1
+#   lines[start_index..-1].collect { |l| l.split("\t").first }
+# end
+
+desc 'Run test using calabash'
+task :calabash do
+  system('AUTOMATION_TYPE=calabash bundle exec calabash-android run apks/calabash_notes.apk')
+end
+
+desc 'Run test using appium'
+task :appium do
+  system('AUTOMATION_TYPE=appium bundle exec cucumber')
+end
+
+desc 'Run Android tests in parallel'
+task :parallel_appium do
+  `killall -9 node`
+  with_redis do |redis_connection_string|
+    FileUtils.rm_rf('parallel_cucumber/worker_log')
+    FileUtils.mkdir_p 'parallel_cucumber/worker_log'
+    FileUtils.rm_rf('parallel_cucumber/appium_logs')
+    FileUtils.mkdir_p 'parallel_cucumber/appium_logs'
+    cmd = %Q(AUTOMATION_TYPE=appium bundle exec parallel_cucumber \
+          --queue-connection-param #{redis_connection_string} \
+          --backup-worker-count 3 \
+          --log-dir 'parallel_cucumber/worker_log' -o'--format pretty' \
+          -r parallel_cucumber/batch_hooks.rb \
+          --setup-worker 'ruby parallel_cucumber/worker_setup.rb' \
+          --env-variables \"#{env_vars}\" \
+)
+    # p cmd
+    system(cmd)
+  end
+end
+
+def env_vars
+  appium_ports = []
+  SystemUnderTest.connected_devices.each_with_index {|d, i| appium_ports << (3000 + i)}
+  ENV['APPIUM_PORTS'] = appium_ports.join(',')
+  {
+      "ADB_DEVICE_ARG" => SystemUnderTest.connected_devices,
+      "APPIUM_PORT" => appium_ports
+  }.to_json.gsub('"', '\\"')
+end

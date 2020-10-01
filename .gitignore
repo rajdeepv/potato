@@ -1,5 +1,5 @@
 .idea
 test_servers
-worker_log
 node_modules
-*appium_log.txt
+parallel_cucumber/worker_log
+parallel_cucumber/appium_logs
