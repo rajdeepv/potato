@@ -55,5 +55,11 @@ module Potato
     def stop
       @driver.quit_driver
     end
+
+    ####################################
+
+    def tap_element(element)
+      @driver.find_element(element).click
+    end
   end
 end
