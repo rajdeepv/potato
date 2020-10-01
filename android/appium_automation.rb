@@ -16,13 +16,13 @@ module Potato
               {
                   app: APP_PATH,
                   platformName: 'Android',
-                  deviceName: Context.device.adb_device_arg,
-                  udid: Context.device.adb_device_arg,
+                  deviceName: SystemUnderTest.device.adb_device_arg,
+                  udid: SystemUnderTest.device.adb_device_arg,
                   appPackage: APP_PACKAGE,
                   appWaitActivity: '*',
                   automationName: 'espresso',
                   newCommandTimeout: 0,
-                  system_port: Context.device.reserve_port,
+                  system_port: SystemUnderTest.device.reserve_port,
                   autoGrantPermissions: true, # If noReset is true, this capability doesn't work.
                   skipUnlock: true,
                   fullReset: false,

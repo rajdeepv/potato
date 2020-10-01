@@ -5,7 +5,7 @@ module Potato
 
     def initialize(adb_device_arg, ui_automation)
       @adb_device_arg = adb_device_arg
-      @ui_automation = ui_automation.new
+      @ui_automation = ui_automation
     end
 
     def uninstall_apps(packages)

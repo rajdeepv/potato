@@ -1,6 +1,6 @@
 require_relative '../../android/device'
 
-class Context
+class SystemUnderTest
   class << self
     attr_accessor :device
 
@@ -24,11 +24,11 @@ Before do
   APP_PACKAGE = 'com.avjindersinghsekhon.minimaltodo'
   ESPRESSO_SERVER_PATH = 'apks/espresso_server_notes.apk'
 
-  Context.device = Potato::Device.new(Context.adb_device_arg, Potato::AppiumAutomation)
-  Context.device.uninstall_apps([ESPRESSO_PKG, APP_PACKAGE])
-  Context.device.start_aut
+  driver = Potato::AppiumAutomation.new
+  SystemUnderTest.device = Potato::Device.new(SystemUnderTest.adb_device_arg, driver)
+  SystemUnderTest.device.start_aut
 end
 
 After do
-  Context.device.stop_aut
+  SystemUnderTest.device.stop_aut
 end

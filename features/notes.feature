@@ -1,4 +1,4 @@
 Feature: Notes
-
   Scenario: Add Note
-    Given I start creating a new note
+    When I add a reminder "Pick Kids from School"
+    Then I should see my reminder "Pick Kids from School" in reminders list
