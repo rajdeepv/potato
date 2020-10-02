@@ -13,16 +13,16 @@ class SystemUnderTest
       ENV.fetch('ADB_DEVICE_ARG',connected_devices.first)
     end
 
-    def automation_type
+    def automation_engine
       ENV.fetch('AUTOMATION_TYPE')
     end
 
     def automation_type_appium?
-      automation_type == 'appium'
+      automation_engine == 'appium'
     end
 
     def automation_type_calab?
-      automation_type == 'calabash'
+      automation_engine == 'calabash'
     end
   end
 end

@@ -1,11 +1,11 @@
 module Potato
-  class Device
+  class Device #(CAR)
 
-    attr_reader :adb_device_arg, :ui_automation
+    attr_reader :adb_device_arg, :automation_engine # (DieselEngine/ PetrolEngine)
 
-    def initialize(adb_device_arg, ui_automation)
+    def initialize(adb_device_arg, automation_engine)
       @adb_device_arg = adb_device_arg
-      @ui_automation = ui_automation
+      @automation_engine = automation_engine
     end
 
     def uninstall_apps(packages)
@@ -40,11 +40,11 @@ module Potato
     end
 
     def start_aut
-      @ui_automation.start
+      @automation_engine.start
     end
 
     def stop_aut
-      @ui_automation.stop
+      @automation_engine.stop
     end
   end
 end
