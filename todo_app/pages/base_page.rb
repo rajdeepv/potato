@@ -1,7 +1,7 @@
 module TodoApp
   class BasePage
     def ui
-      SystemUnderTest.device.ui_automation
+      SystemUnderTest.device.automation_engine
     end
   end
 end

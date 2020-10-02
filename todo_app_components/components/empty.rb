@@ -7,7 +7,7 @@ module TodoApp
     end
 
     def click_add
-      ui.tap_element(ADD_ITEM)
+      SystemUnderTest.device.automation_engine.tap_element(ADD_ITEM)
     end
   end
 end

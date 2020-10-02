@@ -8,7 +8,7 @@ end
 
 Then(/^I should see my reminder "([^"]*)" in reminders list$/) do |note_text|
   todo_app_todo_list_page = TodoApp::TodoListPage.new
-  raise 'Note not found' unless todo_app_todo_list_page.get_first_todo(note_text)
+  raise 'Note not found' unless todo_app_todo_list_page.get_first_todo == note_text
 end
 
 When(/^I add an empty note$/) do

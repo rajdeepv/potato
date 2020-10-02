@@ -3,7 +3,7 @@ require 'appium_lib/driver'
 require_relative 'appium_automation/keystore'
 
 module Potato
-  class AppiumAutomation
+  class AppiumEngine
     APP_PATH = 'apks/appium_notes.apk'
     APP_PACKAGE = 'com.avjindersinghsekhon.minimaltodo'
 
@@ -62,6 +62,18 @@ module Potato
 
     def tap_element(element)
       @driver.find_element(element).click
+    end
+
+    def enter_text(element, text)
+      @driver.find_element(element).send_keys(text)
+    end
+
+    def get_text(element)
+      @driver.find_element(element).text
+    end
+
+    def wait_for_element(element)
+      sleep 1
     end
   end
 end

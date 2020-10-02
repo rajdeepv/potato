@@ -2,7 +2,7 @@ require 'calabash-android'
 require_relative 'calabash_automation/calabash_driver'
 
 module Potato
-  class CalabashAutomation
+  class CalabashEngine
     def driver
       @driver
     end
@@ -19,6 +19,18 @@ module Potato
     #################################
     def tap_element(element)
       @driver.touch(element)
+    end
+
+    def enter_text(element, text)
+      @driver.enter_text(element, text)
+    end
+
+    def get_text(element)
+      @driver.query(element, :text).first
+    end
+
+    def wait_for_element(element)
+      sleep 1
     end
   end
 end
