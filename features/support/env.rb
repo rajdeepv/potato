@@ -1,6 +1,6 @@
 require_relative 'system_under_test'
 require_relative '../../android/device'
-require_relative '../../todo_app_components/components'
+require_relative '../../android/locator_builder'
 require_relative '../../todo_app/pages'
 
 if SystemUnderTest.automation_engine == 'appium'

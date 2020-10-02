@@ -1,11 +1,6 @@
 module TodoApp
   class TodoListPage < BasePage
-
-    if ::SystemUnderTest.automation_type_appium?
-      NOTE_TITLE = {id: 'toDoListItemTextview'}
-    else
-      NOTE_TITLE = "* id:'toDoListItemTextview'"
-    end
+    NOTE_TITLE = Android::Locator.builder.id('toDoListItemTextview').build
 
     def get_first_todo
       SystemUnderTest.device.automation_engine.wait_for_element(NOTE_TITLE)
